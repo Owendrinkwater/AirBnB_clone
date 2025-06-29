@@ -3,7 +3,6 @@
 
 import json
 import os
-from models.base_model import BaseModel
 
 class FileStorage:
     """Serializes and deserializes instances to/from a JSON file"""
@@ -30,6 +29,7 @@ class FileStorage:
     def reload(self):
         """Deserialize the JSON file to __objects, if it exists."""
         if os.path.exists(self.__file_path):
+            from models.base_model import BaseModel
             with open(self.__file_path, "r", encoding="utf-8") as f:
                 obj_dict = json.load(f)
                 for key, value in obj_dict.items():
