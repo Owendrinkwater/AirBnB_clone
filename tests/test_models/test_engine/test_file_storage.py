@@ -105,5 +105,43 @@ class TestFileStorage_methods(unittest.TestCase):
             models.storage.reload(None)
 
 
+class TestBaseModelSave(unittest.TestCase):
+    """Tests the save method of BaseModel"""
+
+    def setUp(self):
+        """Clean up the file.json before test"""
+        try:
+            os.remove("file.json")
+        except FileNotFoundError:
+            pass
+        self.model = BaseModel()
+
+    def tearDown(self):
+        """Remove file.json after test"""
+        try:
+            os.remove("file.json")
+        except FileNotFoundError:
+            pass
+
+    def test_save_updates_updated_at(self):
+        """Test that save updates updated_at"""
+        old_updated_at = self.model.updated_at
+        self.model.save()
+        self.assertNotEqual(self.model.updated_at, old_updated_at)
+        self.assertIsInstance(self.model.updated_at, datetime)
+
+    def test_save_creates_file(self):
+        """Test that save creates file.json"""
+        self.model.save()
+        self.assertTrue(os.path.isfile("file.json"))
+
+    def test_save_stores_instance(self):
+        """Test that instance is in storage after save"""
+        self.model.save()
+        all_objs = storage.all()
+        key = f"BaseModel.{self.model.id}"
+        self.assertIn(key, all_objs)
+
+
 if __name__ == "__main__":
     unittest.main()
