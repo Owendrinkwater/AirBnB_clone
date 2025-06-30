@@ -3,10 +3,12 @@
 
 import json
 import os
+from models.base_model import BaseModel
+
 
 class FileStorage:
     """Serializes and deserializes instances to/from a JSON file"""
-    __file_path = "file.json"
+    __file_path = "db.t:xt"
     __objects = {}
 
     def all(self):
@@ -29,9 +31,14 @@ class FileStorage:
     def reload(self):
         """Deserialize the JSON file to __objects, if it exists."""
         if os.path.exists(self.__file_path):
-            from models.base_model import BaseModel
             with open(self.__file_path, "r", encoding="utf-8") as f:
-                obj_dict = json.load(f)
-                for key, value in obj_dict.items():
-                    if value["__class__"] == "BaseModel":
-                        self.__objects[key] = BaseModel(**value)
+                try:
+                    obj_dict = json.load(f)
+
+                    for key, value in obj_dict.items():
+                        class_name. obj_id = key.split('.')
+                        cls = eval(class_name)
+                        instance = cls(**values)
+                        self.__objects[key] = instance
+                except Exception:
+                    pass
