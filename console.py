@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+"""Entry point for the command interpreter of the HBNB project."""
+
 import cmd
 
 
