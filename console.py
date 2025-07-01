@@ -36,6 +36,7 @@ class HBNBCommand(cmd.Cmd):
             return
         if args[0] not in classes:
             print("** class doesn't exist **")
+            return
 
         obj = classes[args[0]]()
         obj.save()
