@@ -4,7 +4,12 @@
 import json
 import os
 from models.base_model import BaseModel
+from models.user import User
 
+classes = {
+    "BaseModel": BaseModel,
+    "User": User
+}
 
 class FileStorage:
     """Serializes and deserializes instances to/from a JSON file"""
@@ -34,5 +39,6 @@ class FileStorage:
             with open(self.__file_path, "r", encoding="utf-8") as f:
                 obj_dict = json.load(f)
                 for key, value in obj_dict.items():
-                    if value["__class__"] == "BaseModel":
-                        self.__objects[key] = BaseModel(**value)
+                    cls_name = value["__class__"]
+                    if cls_name in classes:
+                        self.__objects[key] = classes[cls_name](**value)

@@ -7,7 +7,8 @@ from models import storage
 from models.base_model import BaseModel
 
 classes = {
-    "BaseModel": BaseModel
+    "BaseModel": BaseModel,
+    "User": User
 }
 
 
