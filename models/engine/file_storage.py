@@ -8,7 +8,7 @@ from models.base_model import BaseModel
 
 class FileStorage:
     """Serializes and deserializes instances to/from a JSON file"""
-    __file_path = "db.t:xt"
+    __file_path = "file.json"
     __objects = {}
 
     def all(self):
