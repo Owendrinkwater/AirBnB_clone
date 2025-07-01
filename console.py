@@ -87,7 +87,7 @@ class HBNBCommand(cmd.Cmd):
             if not args or args[0] == obj.__class__.__name__:
                 obj_list.append(str(obj))
         if args and args[0] not in classes:
-            print("** class doesn't exist**")
+            print("** class doesn't exist **")
         else:
             print(obj_list)
 
